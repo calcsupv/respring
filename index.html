@@ -2,12 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
     html, body {
         margin: 0; padding: 0; overflow: hidden; 
         width: 100vw; height: 100vh;
         background: black;
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
+        -webkit-tap-highlight-color: transparent;
     }
     #black-bg {
         position: fixed; top: 0; left: 0;
@@ -28,25 +29,44 @@
         z-index: 9999;
         pointer-events: none;
     }
-    #respring {
+    #respring-container {
         position: fixed;
-        left: 20px;
-        bottom: 20px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         z-index: 10000;
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 500;
-        color: #333;
-        background-color: #f8f8f8;
-        border: 1px solid #ccc;
-        border-radius: 16px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        cursor: pointer;
-        transition: background-color 0.2s, box-shadow 0.2s;
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid rgba(255,255,255,0.1);
     }
-    #respring:hover {
-        background-color: #e0e0e0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    #respring {
+        width: 100%;
+        max-width: 400px;
+        padding: 14px;
+        font-size: 17px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-weight: 600;
+        color: white;
+        background: linear-gradient(to bottom, #007AFF, #0062CC);
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
+        -webkit-tap-highlight-color: transparent;
+    }
+    #respring:active {
+        background: linear-gradient(to bottom, #0062CC, #0052A3);
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+    #respring:focus {
+        outline: none;
     }
 </style>
 </head>
@@ -54,7 +74,10 @@
     <div id="black-bg"></div>
     <canvas id="canvas"></canvas>
     <div id="overlay"></div>
-    <button id="respring">Respring</button>
+    
+    <div id="respring-container">
+        <button id="respring">Respring</button>
+    </div>
 
 <script>
     const canvas = document.getElementById("canvas");
@@ -137,7 +160,7 @@
     }
 
     document.getElementById("respring").addEventListener("click", () => {
-        document.getElementById("respring").remove();
+        document.getElementById("respring-container").remove();
         heavyDraw();
         spamLayersLoop();
         animateLayers();
