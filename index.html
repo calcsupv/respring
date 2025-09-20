@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<!--
-    Copyright (C) 2025 @kiyu4776
-    This file is proprietary and confidential.
-    Unauthorized reproduction or distribution is prohibited.
-  -->
 <style>
     html, body {
         margin: 0; padding: 0; overflow: hidden; 
@@ -65,6 +60,7 @@
         cursor: pointer;
         transition: all 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
         -webkit-tap-highlight-color: transparent;
+        
     }
     #respring:active {
         background: rgba(255, 59, 48, 0.1);
@@ -165,21 +161,14 @@
         requestAnimationFrame(animateLayers);
     }
 
-    document.getElementById("respring").addEventListener("click", () => {
+    function startEffects() {
         document.getElementById("respring-container").remove();
         heavyDraw();
         spamLayersLoop();
         animateLayers();
-    });
+    }
 
-    window.addEventListener('resize', () => {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-        layers.forEach(div => {
-            div.style.width = w + 'px';
-            div.style.height = h + 'px';
-        });
-    });
+    document.getElementById("respring").addEventListener("click", startEffects);
 </script>
 </body>
 </html>
